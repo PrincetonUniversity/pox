@@ -247,7 +247,13 @@ class ConnectionIn (Event):
     self.dpid = connection.dpid
     self.nexus = None
 
-
+class VendorIn (Event):
+  def __init__ (self, connection, ofp):
+    Event.__init__(self)
+    self.connection = connection
+    self.ofp = ofp
+    self.data = ofp.data
+    self.dpid = connection.dpid
 
 class OpenFlowConnectionArbiter (EventMixin):
   """
@@ -320,6 +326,7 @@ class OpenFlowNexus (EventMixin):
     PortStatsReceived,
     QueueStatsReceived,
     FlowRemoved,
+    VendorIn
   ])
 
   # Bytes to send to controller when a packet misses all flows

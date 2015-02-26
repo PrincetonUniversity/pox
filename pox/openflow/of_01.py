@@ -238,7 +238,10 @@ def handle_OFPST_QUEUE (con, parts):
     con.raiseEventNoErrors(QueueStatsReceived, con, parts, msg)
 
 def handle_VENDOR (con, msg):
-  log.info("Vendor msg: " + str(msg))
+  #log.info("Vendor msg: " + str(msg))
+  e = con.ofnexus.raiseEventNoErrors(VendorIn, con, msg)
+  if e is None or e.halt != True:
+    con.raiseEventNoErrors(VendorIn, con, msg)
 
 
 # A list, where the index is an OFPT, and the value is a function to
@@ -584,6 +587,7 @@ class Connection (EventMixin):
     PortStatsReceived,
     QueueStatsReceived,
     FlowRemoved,
+    VendorIn
   ])
 
   # Globally unique identifier for the Connection instance
