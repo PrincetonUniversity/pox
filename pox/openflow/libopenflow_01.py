@@ -3468,7 +3468,7 @@ class ofp_vendor_stats_generic (ofp_stats_body_base):
     return offset
 
   @staticmethod
-  def __len__ (self):
+  def __len__ ():
     return 4+len(self._pack_body())
 
   def __eq__ (self, other):
